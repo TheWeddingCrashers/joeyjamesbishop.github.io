@@ -12,24 +12,56 @@ main.portfolio {
   margin: auto;
 }
 
+/* Headings */
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  margin-bottom: 0.2rem;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 2rem;  /* reduced size for sleeker look */
+  margin-bottom: 0.3rem;
   text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Subtitle under main name */
+h1.subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  margin-top: 0.1rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Special styling for email line */
+h1.email {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.2rem;
+  margin-bottom: 1.2rem; /* add breathing space after email */
+}
+
+h2, .project-title {
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.3rem;
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: center;
-  font-weight: 400;
+  font-weight: 300;
   margin-bottom: 0.5rem;
 }
 
 .contact {
   text-align: center;
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
   margin-bottom: 2rem;
 }
 .contact a {
@@ -40,17 +72,6 @@ h1 {
 
 .project {
   margin-bottom: 4rem;
-}
-
-.project-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding-bottom: 0.3rem;
 }
 
 /* === Carousel layout === */
@@ -79,7 +100,7 @@ h1 {
 .image-row video {
   max-height: 360px;
   width: auto;
-  border-radius: 10px;
+  border-radius: 10px; /* keep curved edges */
   object-fit: contain;
   display: block;
   margin: auto;
@@ -170,6 +191,8 @@ h1 {
     font-size: 1.7rem;
     padding: 0.4rem 0.8rem;
   }
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.4rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; }
+  h1.email { font-size: 0.9rem; }
+  h1.subtitle { font-size: 1rem; }
 }
