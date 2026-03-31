@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const current = currentGroup[currentIndex];
     lightboxMedia =
       current.tagName.toLowerCase() === "img"
-        ? Object.assign(document.createElement("img"), { src: current.dataset.src || current.src })
+        ? Object.assign(document.createElement("img"), { src: current.src })
         : Object.assign(document.createElement("video"), {
             src: current.dataset.src || current.src,
             autoplay: true,
@@ -71,13 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
-  // Lazy load images + videos with IntersectionObserver
-  const lazyMedia = document.querySelectorAll("img[loading='lazy'], video[preload='none']");
+  // Lazy load videos with IntersectionObserver
+  const lazyVideos = document.querySelectorAll("video[preload='none']");
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const media = entry.target;
-        if (media.dataset.src) media.src = media.dataset.src;
         if (media.tagName.toLowerCase() === "video" && media.dataset.poster) {
           media.poster = media.dataset.poster;
         }
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  lazyMedia.forEach((el) => observer.observe(el));
+  lazyVideos.forEach((el) => observer.observe(el));
 
   // --- Accessibility & performance enhancements (AFTER lightbox setup) ---
   document.querySelectorAll('img:not([loading])').forEach(img => {
