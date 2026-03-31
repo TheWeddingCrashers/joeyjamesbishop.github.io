@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Hero parallax: image moves at ~40% of scroll speed ---
+  const heroImg = document.querySelector('.hero-image');
+  const heroSection = document.querySelector('.hero-section');
+  if (heroImg && heroSection) {
+    let rafPending = false;
+    const updateParallax = () => {
+      const scrolled = window.scrollY;
+      // Only animate while the hero is in/near the viewport
+      if (scrolled <= heroSection.offsetHeight * 1.5) {
+        heroImg.style.transform = `translateY(${scrolled * 0.4}px)`;
+      }
+      rafPending = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(updateParallax);
+      }
+    }, { passive: true });
+  }
+
   // --- Create lightbox ---
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
