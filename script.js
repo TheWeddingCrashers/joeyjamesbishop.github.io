@@ -20,6 +20,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
   }
 
+  // --- Bio parallax: tycho-16a.jpg moves at ~35% of scroll speed ---
+  const bioParallaxSection = document.getElementById('bio-parallax');
+  const bioParallaxImg = bioParallaxSection?.querySelector('.parallax-image');
+  if (bioParallaxImg && bioParallaxSection) {
+    let bioRafPending = false;
+    const updateBioParallax = () => {
+      const sectionTop = bioParallaxSection.offsetTop;
+      const offset = (window.scrollY - sectionTop) * 0.35;
+      bioParallaxImg.style.transform = `translateY(${offset}px)`;
+      bioRafPending = false;
+    };
+    updateBioParallax();
+    window.addEventListener('scroll', () => {
+      if (!bioRafPending) {
+        bioRafPending = true;
+        requestAnimationFrame(updateBioParallax);
+      }
+    }, { passive: true });
+  }
+
   // --- Create lightbox ---
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
