@@ -58,6 +58,16 @@ h2, .project-title {
   margin-bottom: 0.5rem;
 }
 
+.bio {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
 .contact {
   text-align: center;
   font-size: 0.9rem;
