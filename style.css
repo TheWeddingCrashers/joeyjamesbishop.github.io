@@ -29,9 +29,9 @@ body {
 .hero-intro {
   position: relative;
   z-index: 2;
-  margin-top: -52vh;
-  padding: 6rem 2rem 3rem;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 40%, #000 65%);
+  margin-top: -70vh;
+  padding: 3rem 2rem 3rem;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 35%, #000 60%);
   text-align: center;
 }
 
@@ -237,7 +237,7 @@ h2, .project-title {
   h2 { font-size: 1.2rem; }
   h1.subtitle { font-size: 1rem; }
   .hero-intro {
-    margin-top: -40vh;
-    padding: 4rem 1.2rem 2rem;
+    margin-top: -55vh;
+    padding: 2rem 1.2rem 2rem;
   }
 }
