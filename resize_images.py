@@ -1,10 +1,17 @@
-import os, re, shutil
+import os
+import re
 from PIL import Image
 
 input_folder = "images"
 output_folder = "images"
-small_width = 1200
-large_width = 2400
+
+# small: shown in gallery grid (fast to load)
+small_width = 800
+small_quality = 70
+
+# large: shown in lightbox when clicking an image (good quality)
+large_width = 1600
+large_quality = 80
 
 def clean_filename(name):
     # lowercase
@@ -21,29 +28,32 @@ def resize_and_save(path, base_name):
     img = Image.open(path)
     w, h = img.size
 
-    for width, suffix in [(small_width, "small"), (large_width, "large")]:
+    for width, suffix, quality in [
+        (small_width, "small", small_quality),
+        (large_width, "large", large_quality),
+    ]:
         new_h = int(h * (width / w)) if w > width else h
         resized = img.resize((min(w, width), new_h), Image.LANCZOS)
         new_name = f"{base_name}-{suffix}.jpg"
         save_path = os.path.join(output_folder, new_name)
-        resized.convert("RGB").save(save_path, "JPEG", quality=85, optimize=True)
+        resized.convert("RGB").save(save_path, "JPEG", quality=quality, optimize=True)
         print(f"✅ Created {save_path}")
 
 def process_images():
     for filename in os.listdir(input_folder):
-        if filename.lower().endswith((".jpg", ".jpeg", ".png")) and "small" not in filename and "large" not in filename:
+        low = filename.lower()
+        if low.endswith((".jpg", ".jpeg", ".png")) and "-small." not in low and "-large." not in low:
             filepath = os.path.join(input_folder, filename)
             base, _ = os.path.splitext(filename)
             clean_base = clean_filename(base)
-            clean_original = f"{clean_base}.jpg"
-            clean_path = os.path.join(output_folder, clean_original)
 
-            # Move and rename original file
-            shutil.move(filepath, clean_path)
-            print(f"🔄 Moved & renamed {filename} → {clean_original}")
-
-            # Resize to small & large
-            resize_and_save(clean_path, clean_base)
+            # Resize to small & large (no original copy kept)
+            try:
+                resize_and_save(filepath, clean_base)
+                os.remove(filepath)
+                print(f"🔄 Processed & removed original: {filename}")
+            except Exception as e:
+                print(f"❌ Error processing {filename}: {e}")
 
 process_images()
-print("\n🎉 All messy filenames cleaned, originals renamed, and small/large versions created!")
+print("\n🎉 All images processed — small (gallery) and large (lightbox) versions created!")
