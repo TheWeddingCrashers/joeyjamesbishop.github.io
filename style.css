@@ -20,14 +20,11 @@ a, button, .image-row-wrapper {
   touch-action: manipulation;
 }
 
-/* === Hero editorial grid section === */
+/* === Hero section – single full-width dominant image === */
 .hero-section {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 62% 38%;
-  grid-template-rows: repeat(2, calc(100vh / 2));
 }
 
 /* Individual hero cells */
@@ -37,18 +34,14 @@ a, button, .image-row-wrapper {
 }
 
 .hero-item--main {
-  grid-column: 1;
-  grid-row: 1 / 3;
+  position: absolute;
+  inset: 0;
 }
 
-.hero-item--top-right {
-  grid-column: 2;
-  grid-row: 1;
-}
-
+/* Right-column images hidden at all screen sizes per design */
+.hero-item--top-right,
 .hero-item--bot-right {
-  grid-column: 2;
-  grid-row: 2;
+  display: none;
 }
 
 /* Each hero image: oversized for parallax room */
@@ -81,6 +74,7 @@ a, button, .image-row-wrapper {
 }
 
 /* Zoom out right-column hero images so full image is visible instead of cropping into faces */
+/* (kept for safety; right-column items are hidden via display:none) */
 .hero-item--top-right .hero-img,
 .hero-item--bot-right .hero-img {
   object-fit: contain;
@@ -125,26 +119,29 @@ a, button, .image-row-wrapper {
   pointer-events: auto;
 }
 
-/* Editorial / Film button layered at the junction of hero image and Tycho image.
-   top: 100vh aligns with the hero section's explicit height: 100vh boundary;
-   transform: translate(-50%, -50%) centres the button exactly at that seam. */
+/* Editorial / Film button – full-width bar layered at the junction of hero image
+   and Tycho image.  top: 100vh aligns with the hero section's explicit height;
+   transform: translateY(-50%) centres it exactly at that seam. */
 .editorial-film-btn {
   position: absolute;
   top: 100vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   z-index: 10;
-  display: inline-block;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
   color: #fff;
   background-color: #000;
   border: 1px solid rgba(255,255,255,0.65);
   text-decoration: none;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 14px 34px;
+  padding: 20px 0;
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
@@ -189,16 +186,15 @@ a, button, .image-row-wrapper {
   display: block;
 }
 
-/* Tycho image: shift right so arm is fully visible, slightly down.
-   top:-15% / height:130% oversizes the image to provide bleed room for
-   the JS parallax translateY transform (same pattern as other parallax images). */
+/* Tycho image: keep face centered; top:-15% / height:130% oversizes the image to
+   provide bleed room for the JS parallax translateY transform. */
 #bio-parallax .tycho-parallax-img {
   position: absolute;
   top: -15%;
   width: 100%;
   height: 130%;
   object-fit: cover;
-  object-position: 42% 60%;
+  object-position: center;
   will-change: transform;
   display: block;
 }
@@ -618,14 +614,16 @@ body {
 }
 .site-header-nav a:hover { color: #fff; }
 
-/* === Premium full-width section bar links === */
+/* === Premium full-width section bar links (Commercial button) === */
 .section-bar {
   width: 100%;
   background-color: #000;
-  padding: 50px 0;
+  border: 1px solid rgba(255,255,255,0.65);
+  padding: 20px 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .section-bar a {
@@ -678,15 +676,7 @@ body {
 
 /* === Responsive === */
 @media (max-width: 768px) {
-  /* Collapse hero grid to single dominant image on mobile */
-  .hero-section {
-    display: block;
-    height: 100vh;
-  }
-  .hero-item--top-right,
-  .hero-item--bot-right {
-    display: none;
-  }
+  /* Hero section is already single-column; ensure main image fills the viewport */
   .hero-item--main {
     position: absolute;
     inset: 0;
@@ -709,8 +699,8 @@ body {
     padding: 0 1.2rem 10px;
   }
   .editorial-film-btn {
-    font-size: 10px;
-    padding: 12px 24px;
+    font-size: 11px;
+    padding: 16px 0;
     letter-spacing: 2px;
   }
   #bio-parallax {
@@ -718,6 +708,10 @@ body {
   }
   .bio-parallax-section {
     height: 55vh;
+  }
+  /* Tycho image: face is on the left – crop right side to keep it in frame */
+  #bio-parallax .tycho-parallax-img {
+    object-position: left center;
   }
   .feature-section {
     height: 90vh;
@@ -738,7 +732,6 @@ body {
   .page-nav {
     padding: 1rem 1.2rem;
   }
-  /* Tycho image: object-position already handled by #bio-parallax .tycho-parallax-img */
   .site-header {
     padding: 1rem 1.2rem;
   }
@@ -750,15 +743,10 @@ body {
   }
 }
 
-/* === Hide right-column hero images on landscape-oriented mobile devices === */
+/* === Landscape-oriented mobile: confirm single-column hero === */
 @media (orientation: landscape) and (max-height: 600px) {
   .hero-section {
-    display: block;
     height: 100vh;
-  }
-  .hero-item--top-right,
-  .hero-item--bot-right {
-    display: none;
   }
   .hero-item--main {
     position: absolute;
