@@ -125,7 +125,9 @@ a, button, .image-row-wrapper {
   pointer-events: auto;
 }
 
-/* Editorial / Film button layered at the junction of hero image and Tycho image */
+/* Editorial / Film button layered at the junction of hero image and Tycho image.
+   top: 100vh aligns with the hero section's explicit height: 100vh boundary;
+   transform: translate(-50%, -50%) centres the button exactly at that seam. */
 .editorial-film-btn {
   position: absolute;
   top: 100vh;
@@ -187,7 +189,9 @@ a, button, .image-row-wrapper {
   display: block;
 }
 
-/* Tycho image: shift right so arm is fully visible, slightly down */
+/* Tycho image: shift right so arm is fully visible, slightly down.
+   top:-15% / height:130% oversizes the image to provide bleed room for
+   the JS parallax translateY transform (same pattern as other parallax images). */
 #bio-parallax .tycho-parallax-img {
   position: absolute;
   top: -15%;
