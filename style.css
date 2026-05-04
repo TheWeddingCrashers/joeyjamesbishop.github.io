@@ -244,6 +244,18 @@ a, button, .image-row-wrapper {
   pointer-events: none;
 }
 
+/* === Full-width vertical image stack === */
+.image-stack {
+  display: block;
+  width: 100%;
+}
+
+.image-stack img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* === Feature full-height image sections (after bio-parallax) === */
 .feature-section {
   position: relative;
